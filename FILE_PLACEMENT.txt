@@ -1,0 +1,80 @@
+Python Project Template - File Placement Guide
+==============================================
+
+Root Directory
+--------------
+VERSION
+.gitignore
+LICENSE
+README.md
+CONTRIBUTING.md
+pyproject.toml
+compose.yml
+Makefile
+setup.sh
+
+.github/workflows/
+------------------
+test.yml
+release.yml
+
+docker/
+-------
+Dockerfile
+
+docsrc/source/
+--------------
+conf.py
+index.rst
+installation.rst
+usage.rst
+api.rst
+
+src/project_name/
+-----------------
+__init__.py
+config.py
+
+test/unit/
+----------
+test_config.py
+
+test/integration/
+-----------------
+test_integration.py
+
+
+Quick Start
+-----------
+
+1. Run the structure script:
+   chmod +x create_structure.sh
+   ./create_structure.sh
+
+2. Place all files in their directories according to the list above
+
+3. Make setup.sh executable:
+   chmod +x setup.sh
+
+4. When starting a new project, run:
+   ./setup.sh
+
+5. Create virtual environment:
+   python3 -m venv venv
+   source venv/bin/activate
+
+6. Install:
+   make install
+
+7. Test:
+   make test
+
+
+Notes
+-----
+
+- The setup.sh script will rename src/project_name to your package name
+- It will also update all references in files to your project details
+- After setup, you can start coding in src/your_package_name/
+- Add new modules as needed
+- Write tests in test/unit/ and test/integration/

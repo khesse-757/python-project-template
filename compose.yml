@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: project-name:latest
+    container_name: project-name
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./src:/app/src:ro
+    networks:
+      - project-network
+
+networks:
+  project-network:
+    driver: bridge
