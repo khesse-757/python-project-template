@@ -1,106 +1,161 @@
 # Python Project Template
 
-A clean, simple Python project template with modern tooling and CI/CD.
+A clean, modern Python project template with testing, documentation, and CI/CD.
 
-## What This Is
+## What's Included
 
-This is a template repository for starting new Python projects. It includes:
+* Modern packaging with pyproject.toml
+* Testing with pytest
+* Code quality with ruff
+* Documentation with Sphinx
+* Docker support
+* GitHub Actions CI/CD
+* Automatic releases when VERSION changes
 
-- Modern packaging with pyproject.toml
-- Testing with pytest
-- Code quality with ruff
-- Documentation with Sphinx
-- Docker support
-- GitHub Actions for CI/CD
-- Automatic releases when VERSION file changes
+## Quick Start
 
-## How to Use
+1. Clone this template:
+   ```bash
+   git clone git@github.com:khesse-757/python-project-template.git my-project
+   cd my-project
+   rm -rf .git
+   ```
 
-1. Clone or download this repository
-2. Run the setup script:
+2. Run setup:
    ```bash
    chmod +x setup.sh
    ./setup.sh
    ```
-3. Answer the prompts with your project details
-4. Create a virtual environment:
+
+3. Create virtual environment:
    ```bash
    python3 -m venv venv
    source venv/bin/activate
-   ```
-5. Install:
-   ```bash
-   make install
-   ```
-6. Verify everything works:
-   ```bash
-   make test
-   make lint
+   pip install -e .[dev]
    ```
 
-## What Gets Customized
-
-The setup script will update:
-- Project name and description
-- Author information
-- GitHub URLs
-- Package name (renames src/project_name to your package)
-- All file references
+4. Verify:
+   ```bash
+   pytest
+   ruff check .
+   make docs
+   ```
 
 ## Project Structure
 
 ```
-python-template/
+project/
 ├── .github/workflows/    # CI/CD workflows
 ├── docker/              # Docker configuration
 ├── docsrc/source/       # Sphinx documentation
-├── src/project_name/    # Your package code
-├── test/               # Tests (unit and integration)
+├── src/package_name/    # Your code
+├── test/               # Tests
 ├── pyproject.toml      # Project configuration
 ├── VERSION             # Version tracking
-└── setup.sh           # Initialization script
+└── Makefile           # Common tasks
 ```
 
-## After Setup
+## Features
 
-Once you've run setup.sh:
+### Testing
 
-1. Initialize git:
+* pytest for unit and integration tests
+* Code coverage tracking
+* Automated testing on push/PR
+
+### Documentation
+
+* Sphinx with Read the Docs theme
+* Auto-generated API docs
+* Two deployment options (see DOCUMENTATION_DEPLOYMENT.md)
+
+### CI/CD
+
+* Automated testing on GitHub Actions
+* Automatic releases when VERSION is updated
+* Optional PyPI publishing
+* Cross-platform testing (Ubuntu, macOS, Windows)
+
+### Code Quality
+
+* Ruff for linting and formatting
+* Pre-configured sensible defaults
+* Automatic checks in CI
+
+### Docker
+
+* Ready-to-use Dockerfile
+* Docker Compose configuration
+* Development and production setups
+
+## Usage
+
+### Common Commands
+
+```bash
+make install       # Install with dev dependencies
+make test         # Run all tests
+make lint         # Check code quality
+make format       # Format code
+make docs         # Build documentation
+```
+
+### Making Releases
+
+1. Update VERSION file:
    ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
+   echo "1.2.3" > VERSION
    ```
 
-2. Create GitHub repository and push:
+2. Commit and push to main:
    ```bash
-   git remote add origin https://github.com/yourusername/your-project.git
-   git branch -M main
-   git push -u origin main
+   git commit -am "Release v1.2.3"
+   git push origin main
    ```
 
-3. Add PyPI token to GitHub secrets for automatic publishing:
-   - Go to repository Settings > Secrets > Actions
-   - Add `PYPI_API_TOKEN` with your PyPI token
+3. GitHub Actions automatically:
+   * Runs tests
+   * Builds package
+   * Creates GitHub release
+   * Publishes to PyPI (if configured)
 
-## Making Releases
+### Documentation
 
-To create a release:
+See [DOCUMENTATION_DEPLOYMENT.md](DOCUMENTATION_DEPLOYMENT.md) for detailed documentation setup options:
 
-1. Update the VERSION file
-2. Commit and push to main
-3. GitHub Actions will automatically:
-   - Run tests
-   - Build the package
-   - Create a GitHub release
-   - Publish to PyPI
+* **Option 1:** GitHub Pages (gh-pages branch) - Standard approach
+* **Option 2:** In-repo docs folder - For sites with separate content
+
+## Customization
+
+### First Steps
+
+1. Update pyproject.toml with your project details
+2. Rename src/project_name to your package name
+3. Update documentation in docsrc/source/
+4. Add your dependencies to pyproject.toml
+
+### Optional: PyPI Publishing
+
+By default, the release workflow does NOT publish to PyPI. To enable:
+
+1. Uncomment PyPI section in `.github/workflows/release.yml`
+2. Add PYPI_API_TOKEN to GitHub secrets
+
+### Optional: Custom Domain
+
+For documentation with custom domain:
+
+1. Add CNAME file to docsrc/source/
+2. Configure DNS
+3. See DOCUMENTATION_DEPLOYMENT.md
 
 ## Requirements
 
-- Python 3.11 or higher
-- pip
-- git
+* Python 3.11+
+* pip
+* git
 
 ## License
 
-MIT License - use this template for anything you want.
+MIT License - use this template however you want.
